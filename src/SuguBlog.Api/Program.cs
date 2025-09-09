@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SuguBlog.Api;
 using SuguBlog.Data;
 using SuguBlog.Data.Domain.Identity;
 
@@ -57,5 +58,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// seed database
+app.MigrateDatabase();
 
 app.Run();
