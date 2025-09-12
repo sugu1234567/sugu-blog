@@ -15,14 +15,9 @@ namespace SuguBlog.Data.SeedWorks
             _context = context;
         }
 
-        public void add(T entity)
-        {
-            _dbSet.AddAsync(entity);
-        }
-
         public void Add(T entity)
         {
-            throw new NotImplementedException();
+            _dbSet.AddAsync(entity);
         }
 
         public void AddRange(IEnumerable<T> entities)

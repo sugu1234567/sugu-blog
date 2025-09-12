@@ -1,5 +1,4 @@
-﻿using SuguBlog.Core.Domain.Content;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SuguBlog.Data.Domain.Content
