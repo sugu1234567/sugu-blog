@@ -1,4 +1,7 @@
-﻿using SuguBlog.Core.SeedWorks;
+﻿using AutoMapper;
+using SuguBlog.Core.Repositories;
+using SuguBlog.Core.SeedWorks;
+using SuguBlog.Data.Repositories;
 
 namespace SuguBlog.Data.SeedWorks
 {
@@ -6,10 +9,14 @@ namespace SuguBlog.Data.SeedWorks
     {
         private readonly SuguBlogContext _context;
 
-        public UnitOfWork(SuguBlogContext context)
+        public UnitOfWork(SuguBlogContext context, IMapper mapper)
         {
             _context = context;
+            Posts = new PostRepository(_context, mapper);
         }
+
+        public IPostRepository Posts { get; private set; }
+
         public async Task<int> CompleteAsync()
         {
             return await _context.SaveChangesAsync();

@@ -8,9 +8,11 @@ namespace SuguBlog.Data.SeedWorks
 
         
         private readonly DbSet<T> _dbSet;
+        protected readonly SuguBlogContext _context;
         public RepositoryBase(SuguBlogContext context) 
         {
             _dbSet = context.Set<T>();
+            _context = context;
         }
 
         public void add(T entity)
