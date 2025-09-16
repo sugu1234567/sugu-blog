@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SuguBlog.Api;
+using SuguBlog.Api.Services;
+using SuguBlog.Core.ConfigOptions;
 using SuguBlog.Core.Models.Content;
 using SuguBlog.Core.SeedWorks;
 using SuguBlog.Data;
@@ -33,6 +35,12 @@ foreach (var service in services)
 
 builder.Services.AddAutoMapper(typeof(PostInListDto));
 
+// authentication and authorization
+builder.Services.Configure<JwtTokenSettings>(configuration.GetSection("JwtTokenSettings"));
+builder.Services.AddScoped<SignInManager<AppUser>, SignInManager<AppUser>>();
+builder.Services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
 
 //Config DB Context and ASP.NET Core Identity
 builder.Services.AddDbContext<SuguBlogContext>(options =>
@@ -79,6 +87,7 @@ builder.Services.AddSwaggerGen(c =>
         Title = "API for Administrators",
         Description = "API for CMS core domain. This domain keeps track of campaigns, campaign rules, and campaign execution."
     });
+    c.ParameterFilter<SwaggerNullableParameterFilter>();
 });
 
 var app = builder.Build();
